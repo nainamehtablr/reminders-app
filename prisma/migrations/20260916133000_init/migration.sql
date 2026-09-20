@@ -1,15 +1,23 @@
+-- CreateEnum
+CREATE TYPE "Priority" AS ENUM ('low', 'medium', 'high');
+
+-- CreateEnum
+CREATE TYPE "ReminderStatus" AS ENUM ('pending', 'completed');
+
 -- CreateTable
 CREATE TABLE "Reminder" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
     "category" TEXT NOT NULL,
-    "dueAt" DATETIME NOT NULL,
-    "priority" TEXT NOT NULL DEFAULT 'medium',
+    "dueAt" TIMESTAMP(3) NOT NULL,
+    "priority" "Priority" NOT NULL DEFAULT 'medium',
     "notes" TEXT,
-    "status" TEXT NOT NULL DEFAULT 'pending',
-    "completedAt" DATETIME,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL
+    "status" "ReminderStatus" NOT NULL DEFAULT 'pending',
+    "completedAt" TIMESTAMP(3),
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Reminder_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
